@@ -407,7 +407,8 @@ div:focus {
 .rightSideSectionCards.ui.card > .content > .header {
   font-size: 16px;
 }
-.ui.card>.extra, .ui.cards>.card>.extra{
+.ui.card > .extra,
+.ui.cards > .card > .extra {
   font-size: 14px;
 }
 /*text description height fixed in card*/
@@ -470,8 +471,7 @@ i.large.icon.limitedPublishingLinkIcon {
 .ui.form input[type="password"],
 .ui.form input[type="url"],
 .ui.form input:not([type]),
-.ui.form input:not([type]):focus
- {
+.ui.form input:not([type]):focus {
   // border: 0;
   // border-bottom: 1px solid #333;
   // border-radius: 0;
@@ -953,7 +953,7 @@ ul.subList-padding {
   font-size: 1em;
   word-break: break-word;
 }
-.courseupdate a{
+.courseupdate a {
   color: var(--primary-color) !important;
   // text-decoration: underline !important;
 }
@@ -1197,14 +1197,14 @@ ul.subList-padding {
 .ui.multiple.dropdown > .text {
   white-space: nowrap;
 }
-.ui.multiple.dropdown > .default  {
+.ui.multiple.dropdown > .default {
   white-space: nowrap;
   margin: 0.1875rem 0 0.1875rem 0 !important;
 }
-.ui.selection.dropdown{
+.ui.selection.dropdown {
   line-height: $sb-input-line-height;
 }
-.ui.multiple.dropdown > .search{
+.ui.multiple.dropdown > .search {
   padding: 0 !important;
 }
 .filtercolumn.ui.grid > .column:not(.row) {
@@ -1762,8 +1762,8 @@ i.edit.icon.editIcon-fontSize {
   &:hover {
     background-color: #edf4f9;
   }
-  html[dir="rtl"] &{
-    .dropdown.icon{
+  html[dir="rtl"] & {
+    .dropdown.icon {
       margin: 0 ($base-block-space) 0 0;
     }
   }
@@ -1841,9 +1841,9 @@ i.edit.icon.editIcon-fontSize {
   > input.search {
   margin: 0 !important;
 }
-#createBatchModal .date-calendar {
-  left: -10px !important;
-}
+// #createBatchModal .date-calendar {
+//   left: -10px !important;
+// }
 #createBatchModal .date-select {
   padding: 1em 0 1em 2em !important;
 }
@@ -1856,9 +1856,9 @@ i.edit.icon.editIcon-fontSize {
   > input.search {
   margin: 0 !important;
 }
-#updateBatchModal .date-calendar {
-  left: -10px !important;
-}
+// #updateBatchModal .date-calendar {
+//   left: -10px !important;
+// }
 #updateBatchModal .date-select {
   padding: 1em 0 1em 2em !important;
 }
@@ -2158,9 +2158,9 @@ i.icon.accordion-content-right {
   margin-left: auto;
 }
 
-.ui.calendar .table td {
-  padding: 0.5em;
-}
+// .ui.calendar .table td {
+//   padding: 0.5em;
+// }
 
 /* Removing body scroll when modal opens */
 .no-scroll {

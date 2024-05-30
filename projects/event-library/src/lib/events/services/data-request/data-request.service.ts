@@ -1,46 +1,47 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
-import { of as observableOf, throwError as observableThrowError, Observable } from 'rxjs';
-import { mergeMap } from 'rxjs/operators';
-import { ServerResponse, RequestParam, HttpOptions } from '../../interfaces';
-import * as _ from 'lodash-es';
+import { Injectable } from "@angular/core";
+import { HttpClient, HttpResponse } from "@angular/common/http";
+import {
+  of as observableOf,
+  throwError as observableThrowError,
+  Observable,
+} from "rxjs";
+import { mergeMap } from "rxjs/operators";
+import { ServerResponse, RequestParam, HttpOptions } from "../../interfaces";
+import * as _ from "lodash-es";
 // import { UUID } from 'angular2-uuid';
-import { UserConfigService } from '../userConfig/user-config.service';
+import { UserConfigService } from "../userConfig/user-config.service";
 // import dayjs from 'dayjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class DataService {
   /**
-     * Contains base Url for api end points
-     */
+   * Contains base Url for api end points
+   */
   // baseUrl = this.userConfigService.getConfigUrl().host;
   // appVersion: string;
   constructor(
     private userConfigService: UserConfigService,
-    private http: HttpClient) {
-      // this.http = http;
-      // const buildNumber = (<HTMLInputElement>document.getElementById('buildNumber'));
-      // this.appVersion = buildNumber && buildNumber.value ? buildNumber.value.slice(0, buildNumber.value.lastIndexOf('.')) : '1.0';
-   
+    private http: HttpClient
+  ) {
+    // this.http = http;
+    // const buildNumber = (<HTMLInputElement>document.getElementById('buildNumber'));
+    // this.appVersion = buildNumber && buildNumber.value ? buildNumber.value.slice(0, buildNumber.value.lastIndexOf('.')) : '1.0';
   }
- 
+
   /**
- * for preparing headers
- */
-  private getHeader(headers?: HttpOptions['headers']): HttpOptions['headers'] {
+   * for preparing headers
+   */
+  private getHeader(headers?: HttpOptions["headers"]): HttpOptions["headers"] {
     // const _uuid = UUID.UUID();
-    if (headers)
-    {
+    if (headers) {
       return headers;
-    }
-    else
-    {
+    } else {
       const default_headers = {
-        Accept: 'application/json',
-        // Authorization: 'Bearer key',
-        // 'Accept': 'application/json',
+        Accept: "application/json",
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIzVGRIUkFpTUFiRHN1SUhmQzFhYjduZXFxbjdyQjZrWSJ9.MotRsgyrPzt8O2jp8QZfWw0d9iIcZz-cfNYbpifx5vs",
         // 'X-Consumer-ID': 'X-Consumer-ID',
         // 'X-Source': 'web',
         // 'ts': dayjs().format(),
@@ -52,80 +53,85 @@ export class DataService {
 
       return default_headers;
     }
-
-
-    
   }
 
   /**
- * for making post api calls
- * @param RequestParam requestParam interface
- */
+   * for making post api calls
+   * @param RequestParam requestParam interface
+   */
   post(requestParam: RequestParam): Observable<any> {
     const httpOptions: HttpOptions = {
-      headers: requestParam.header ? this.getHeader(requestParam.header) : this.getHeader(),
-      params: requestParam.param
+      headers: requestParam.header
+        ? this.getHeader(requestParam.header)
+        : this.getHeader(),
+      params: requestParam.param,
     };
-   return this.http.post(requestParam.url, requestParam.data, httpOptions).pipe(
-      mergeMap((data: any) => {
-        if (data.responseCode !== 'OK') {
-          return observableThrowError(data);
-        }
-        return observableOf(data);
-      }));
+    return this.http
+      .post(requestParam.url, requestParam.data, httpOptions)
+      .pipe(
+        mergeMap((data: any) => {
+          if (data.responseCode !== "OK") {
+            return observableThrowError(data);
+          }
+          return observableOf(data);
+        })
+      );
   }
 
-
   /**
- * for making get api calls
- *
- * @param requestParam interface
- */
+   * for making get api calls
+   *
+   * @param requestParam interface
+   */
   get(requestParam: RequestParam): Observable<any> {
     const httpOptions: HttpOptions = {
       headers: requestParam.header ? requestParam.header : this.getHeader(),
-      params: requestParam.param
+      params: requestParam.param,
     };
     return this.http.get(requestParam.url, httpOptions).pipe(
       mergeMap((data: any) => {
-
         return observableOf(data);
-      }));
+      })
+    );
   }
 
   /**
-* for making post api calls
-* @param RequestParam requestParam interface
-*/
+   * for making post api calls
+   * @param RequestParam requestParam interface
+   */
   patch(requestParam: RequestParam): Observable<any> {
     const httpOptions: HttpOptions = {
-      headers: requestParam.header ? this.getHeader(requestParam.header) : this.getHeader(),
-      params: requestParam.param
+      headers: requestParam.header
+        ? this.getHeader(requestParam.header)
+        : this.getHeader(),
+      params: requestParam.param,
     };
-    return this.http.patch(requestParam.url, requestParam.data, httpOptions).pipe(
-      mergeMap((data: any) => {
-        if (data.responseCode !== 'OK') {
-          return observableThrowError(data);
-        }
-        return observableOf(data);
-      }));
+    return this.http
+      .patch(requestParam.url, requestParam.data, httpOptions)
+      .pipe(
+        mergeMap((data: any) => {
+          if (data.responseCode !== "OK") {
+            return observableThrowError(data);
+          }
+          return observableOf(data);
+        })
+      );
   }
 
-   delete(requestParam: RequestParam): Observable<ServerResponse> {
+  delete(requestParam: RequestParam): Observable<ServerResponse> {
     const httpOptions: HttpOptions = {
       headers: requestParam.header ? requestParam.header : this.getHeader(),
       params: requestParam.param,
-      body: requestParam.data
+      body: requestParam.data,
     };
-       
+
     return this.http.delete(requestParam.url, httpOptions).pipe(
       mergeMap((data: ServerResponse) => {
-        if (data.responseCode !== 'OK') {
+        if (data.responseCode !== "OK") {
           return observableThrowError(data);
         }
         return observableOf(data);
-      }));
+      })
+    );
   }
 }
-
-

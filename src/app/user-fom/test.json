@@ -1,0 +1,52 @@
+{
+  "id": "api.content.read",
+  "ver": "4.0",
+  "ts": "2024-05-15T06:26:52ZZ",
+  "params": {
+    "resmsgid": "be4878fe-f3df-486c-a78d-1ac6cef453b4",
+    "msgid": null,
+    "err": null,
+    "status": "successful",
+    "errmsg": null
+  },
+  "responseCode": "OK",
+  "result": {
+    "event": {
+      "code": "103",
+      "registrationStartDate": "2024-04-15",
+      "endDate": "2024-04-19",
+      "credentials": {
+        "enabled": "Yes"
+      },
+      "language": ["English"],
+      "createdOn": "2024-04-19T10:19:23.983+0000",
+      "objectType": "Event",
+      "primaryCategory": "Event",
+      "registrationEndDate": "2024-04-19",
+      "lastUpdatedOn": "2024-04-19T10:20:51.411+0000",
+      "startTime": "16:53:09+05:30",
+      "contentType": "Event",
+      "trackable": {
+        "enabled": "Yes",
+        "autoBatch": "No"
+      },
+      "owner": "10003",
+      "identifier": "do_114037171928899584118",
+      "lastStatusChangedOn": "2024-04-19T10:19:23.983+0000",
+      "audience": ["Student"],
+      "visibility": "Default",
+      "consumerId": "111c1220-3f1e-4ba2-9de9-5869cfe06662",
+      "onlineProvider": "",
+      "eventType": "Online",
+      "languageCode": ["en"],
+      "version": 2,
+      "versionKey": "1713522051411",
+      "leafNodesCount": 1,
+      "userConsent": "No",
+      "name": "Event 10th",
+      "endTime": "17:53:09+05:30",
+      "startDate": "2024-04-19",
+      "status": "Live"
+    }
+  }
+}

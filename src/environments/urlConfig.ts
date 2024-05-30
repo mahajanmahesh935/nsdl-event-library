@@ -1,80 +1,88 @@
- export const urlConfig = {
-    // endpoint configs...!
-    // Live API's
-    // create: "/event/v4/create",
-    baseUrl:"https://staging-sunbird.nsdl.co.in/",
+export const urlConfig = {
+  // endpoint configs...!
+  // Live API's
+  // create: "/event/v4/create",
+  baseUrl: "https://devnulp.niua.org/",
 
-    create: "https://staging-sunbird.nsdl.co.in/api/event/v4/create",
+  create: "https://devnulp.niua.org/api/event/v4/create",
 
-    // update: "/event/v4/update",
-    update: "https://staging-sunbird.nsdl.co.in/api/event/v4/update",
+  // update: "/event/v4/update",
+  update: "https://devnulp.niua.org/api/event/v4/update",
 
-    // detail :  "/event/v4/read/",
-    detail: "https://staging-sunbird.nsdl.co.in/api/event/v4/read/",
+  // detail :  "/event/v4/read/",
+  detail: "https://devnulp.niua.org/api/event/v4/read/",
 
-    // publish:"/event/v4/publish",
-    publish: "https://staging-sunbird.nsdl.co.in/api/event/v4/publish",
+  // publish:"/event/v4/publish",
+  publish: "https://devnulp.niua.org/api/event/v4/publish",
 
-    // enrollApi: "/v1/event/enroll",
-    enrollApi: "https://staging-sunbird.nsdl.co.in/learner/course/v1/enrol",
+  gmeetcreate: "http://localhost:3000/event/gmeet/create",
 
-    // unenrollApi: "/v1/event/unenroll",
-    unenrollApi: "https://staging-sunbird.nsdl.co.in/learner/course/v1/unenrol",
+  // enrollApi: "/v1/event/enroll",
+  enrollApi: "https://devnulp.niua.org/api/course/v1/enrol",
 
-    // BBBGetUrlModerator: "/event/v4/join/moderator",
-    BBBGetUrlModerator: "https://staging-sunbird.nsdl.co.in/api/event/v4/join/moderator",
+  adminEnroll: "https://nulp.niua.org/learner/course/v1/admin/enroll",
 
-    // BBBGetUrlAttendee:"/event/v4/join/attendee",
-    BBBGetUrlAttendee: "https://staging-sunbird.nsdl.co.in/api/event/v4/join/attendee",
+  // unenrollApi: "/v1/event/unenroll",
+  unenrollApi: "https://devnulp.niua.org/learner/course/v1/unenrol",
 
-    // batchlist: "/v1/course/batch/search",
-    batchlist: "https://staging-sunbird.nsdl.co.in/api/course/v1/batch/list",
+  // BBBGetUrlModerator: "/event/v4/join/moderator",
+  BBBGetUrlModerator: "https://devnulp.niua.org/api/event/v4/join/moderator",
 
-    // createBatch: "/v1/course/batch/create",
-    // createBatch: "https://staging-sunbird.nsdl.co.in/api/course/v1/batch/create",
-    createBatch: "https://staging-sunbird.nsdl.co.in/learner/course/v1/batch/create",
+  // BBBGetUrlAttendee:"/event/v4/join/attendee",
+  BBBGetUrlAttendee: "https://devnulp.niua.org/api/event/v4/join/attendee",
 
-    // search:"/v3/search",
-    search: "https://staging-sunbird.nsdl.co.in/api/event/v1/search",
+  // batchlist: "/v1/course/batch/search",
+  batchlist: "https://devnulp.niua.org/api/course/v1/batch/list",
 
-    // search for asset library.
-    compositeSearch : "https://staging-sunbird.nsdl.co.in/action/composite/v3/search",
+  // createBatch: "/v1/course/batch/create",
+  // createBatch: "https://devnulp.niua.org//api/course/v1/batch/create",
+  createBatch: "https://devnulp.niua.org/learner/course/v1/batch/create",
 
-    // eventFormConfigApi: "/assets/api/event-create.json",
-    eventFilterConfigApiSbForm: "/assets/api/event-filter-sbform.json",
+  // search:"/v3/search",
+  //   search: "https://devnulp.niua.org/api/event/v1/search",
 
-    eventFormConfigApi : "https://staging-sunbird.nsdl.co.in/api/data/v1/form/read",
-    eventFilterConfigApi : "https://staging-sunbird.nsdl.co.in/api/data/v1/form/read",
+  search: "https://devnulp.niua.org/action/composite/v3/search",
 
-    // enrollUserEventList:"/v2/user/courses/list",
-    enrollUserEventList: "https://staging-sunbird.nsdl.co.in/api/course/v2/user/enrollment/list?contentType=Event",
+  // search for asset library.
+  compositeSearch: "https://devnulp.niua.org/action/composite/v3/search",
 
-    // myEvents:"/v2/user/courses/list",
-    myEvents: "https://staging-sunbird.nsdl.co.in/api/course/v2/user/enrollment/list?contentType=Event",
+  // eventFormConfigApi: "/assets/api/event-create.json",
+  eventFilterConfigApiSbForm: "/assets/api/event-filter-sbform.json",
 
-    participantsList: "assets/api/participants.json",
-    // participantsList: "https://staging-sunbird.nsdl.co.in/api/course/v1/batch/participants/list",
+  eventFormConfigApi: "https://devnulp.niua.org/api/data/v1/form/read",
+  eventFilterConfigApi: "https://devnulp.niua.org/api/data/v1/form/read",
 
-     usersApi: "assets/api/usersLive.json",
-    // usersApi: "https://staging-sunbird.nsdl.co.in/api/user/v1/search",
+  // enrollUserEventList:"/v2/user/courses/list",
+  enrollUserEventList:
+    "https://devnulp.niua.org/api/course/v2/user/enrollment/list?contentType=Event",
 
-    // attendanceApi: "assets/api/attendance.json",
-    attendanceApi: "https://staging-sunbird.nsdl.co.in/api/event/v1/attendance/read",
+  // myEvents:"/v2/user/courses/list",
+  myEvents:
+    "https://devnulp.niua.org/api/course/v2/user/enrollment/list?contentType=Event",
 
-    // -------------------------------------------------------------------------------
-    createImage: "https://staging-sunbird.nsdl.co.in/action/content/v3/create",
-    uploadImage:"https://staging-sunbird.nsdl.co.in/action/content/v3/upload",
+  participantsList: "assets/api/participants.json",
+  // participantsList: "https://devnulp.niua.org//api/course/v1/batch/participants/list",
 
-    eventListApi : "assets/api/eventlist.json",
-    eventCreateApi: "https://jsonplaceholder.typicode.com/posts",
-    enrollListApi : "assets/api/enrolled-events.json",
-    // usersApi: "assets/api/users.json",
-    list : "assets/api/eventlist.json",
-    formConfig : "assets/api/event-create.json",
-    enrolllist : "assets/api/enrolled-events.json",
-    enroll: "https://igot-sunbird.idc.tarento.com/v1/event/enroll",
-    retire : "https://igot-sunbird.idc.tarento.com/private/event/v4/retire",
-    calenderevent:"assets/api/eventlist_new.json",
-    ImageSearchApi :  "assets/api/search-images.json",
-    EditModeApi :  "assets/api/editmode.json",
+  usersApi: "assets/api/usersLive.json",
+  // usersApi: "https://devnulp.niua.org//api/user/v1/search",
+
+  // attendanceApi: "assets/api/attendance.json",
+  attendanceApi: "https://devnulp.niua.org/api/event/v1/attendance/read",
+
+  // -------------------------------------------------------------------------------
+  createImage: "https://devnulp.niua.org/action/content/v3/create",
+  uploadImage: "https://devnulp.niua.org/action/content/v3/upload",
+
+  eventListApi: "assets/api/eventlist.json",
+  eventCreateApi: "https://jsonplaceholder.typicode.com/posts",
+  enrollListApi: "assets/api/enrolled-events.json",
+  // usersApi: "assets/api/users.json",
+  list: "assets/api/eventlist.json",
+  formConfig: "assets/api/event-create.json",
+  enrolllist: "assets/api/enrolled-events.json",
+  enroll: "https://igot-sunbird.idc.tarento.com/v1/event/enroll",
+  retire: "https://igot-sunbird.idc.tarento.com/private/event/v4/retire",
+  calenderevent: "assets/api/eventlist_new.json",
+  ImageSearchApi: "assets/api/search-images.json",
+  EditModeApi: "assets/api/editmode.json",
 };

@@ -1,25 +1,23 @@
-import { Injectable } from '@angular/core';
-import { IEventDetailInterface } from '../../interfaces/event-detail.interface';
-import { UserConfigService } from '../userConfig/user-config.service';
-import { DataService } from '../data-request/data-request.service';
+import { Injectable } from "@angular/core";
+import { IEventDetailInterface } from "../../interfaces/event-detail.interface";
+import { UserConfigService } from "../userConfig/user-config.service";
+import { DataService } from "../data-request/data-request.service";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class EventDetailService {
-
   constructor(
     private userConfigService: UserConfigService,
-    private dataService: DataService) {
-  }
-
+    private dataService: DataService
+  ) {}
 
   /**
-   * For get event detail 
+   * For get event detail
    */
   getEvent(identifier) {
     const req = {
-      url: this.userConfigService.getConfigUrl().detail + identifier
+      url: this.userConfigService.getConfigUrl().detail + identifier,
     };
 
     return this.dataService.get(req);
@@ -35,13 +33,10 @@ export class EventDetailService {
 
     const requestBody = {
       request: {
-        "courseId": cId,
-        "userId": uId,
-        "fixedBatchId": "event_batch_id"
-      }
+        courseId: cId,
+        userId: uId,
+        fixedBatchId: "event_batch_id",
+      },
     };
   }
-
 }
-
-

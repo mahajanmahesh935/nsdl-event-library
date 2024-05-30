@@ -1,20 +1,20 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import{ labelMessages } from './../labels';
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { labelMessages } from "./../labels";
 // import { TranslateService } from '@ngx-translate/core';
-import { TimezoneCal } from '../../services/timezone/timezone.service';
-import {EventListService} from '../../services/event-list/event-list.service';
-import { SbToastService } from '../../services/iziToast/izitoast.service';
-import { EventService } from '../../services/event/event.service';
-import { LibEventService } from '../../services/lib-event/lib-event.service';
-import { UsersService } from './../../services/users/users.service';
-import { Router,ActivatedRoute } from '@angular/router';
+import { TimezoneCal } from "../../services/timezone/timezone.service";
+import { EventListService } from "../../services/event-list/event-list.service";
+import { SbToastService } from "../../services/iziToast/izitoast.service";
+import { EventService } from "../../services/event/event.service";
+import { LibEventService } from "../../services/lib-event/lib-event.service";
+import { UsersService } from "./../../services/users/users.service";
+import { Router, ActivatedRoute } from "@angular/router";
 
-import * as _ from 'lodash-es';
+import * as _ from "lodash-es";
 
 @Component({
-  selector: 'sb-advance-event-detail',
-  templateUrl: './advance-event-detail.component.html',
-  styleUrls: ['./advance-event-detail.component.scss']
+  selector: "sb-advance-event-detail",
+  templateUrl: "./advance-event-detail.component.html",
+  styleUrls: ["./advance-event-detail.component.scss"],
 })
 export class AdvanceEventDetailComponent implements OnInit {
   @Input() eventDetailItem: any;
@@ -22,48 +22,48 @@ export class AdvanceEventDetailComponent implements OnInit {
   @Input() layoutConfig;
   @Output() eventDetailData = new EventEmitter();
 
-  labelMessages= labelMessages;
-  isTruncate : boolean = false;
-  showAttendeeList : boolean = false;
+  labelMessages = labelMessages;
+  isTruncate: boolean = false;
+  showAttendeeList: boolean = false;
   timezoneshort: string;
-  Filterdata:any;
-  query : any;
-  similarEventList : any;
+  Filterdata: any;
+  query: any;
+  similarEventList: any;
   eventConfig: any;
-  userId:any;
-  itemList : number[]=[];
-  userName:any;
-  attendanceList:any;
+  userId: any;
+  itemList: number[] = [];
+  userName: any;
+  attendanceList: any;
   isOpen = false;
   roles: any;
-  RL:any;
-  roleList : any = [];
+  RL: any;
+  roleList: any = [];
   constructor(
     // public translate: TranslateService,
-    private eventListService:EventListService,
+    private eventListService: EventListService,
     private sbToastService: SbToastService,
     private eventService: EventService,
     private libEventService: LibEventService,
     private usersService: UsersService,
     private router: Router,
-    private timezoneCal: TimezoneCal) {
-      this.timezoneshort = this.timezoneCal.timeZoneAbbreviated();
-
-    }
+    private timezoneCal: TimezoneCal
+  ) {
+    this.timezoneshort = this.timezoneCal.timeZoneAbbreviated();
+  }
 
   ngOnInit() {
-    this.eventConfig = _.get(this.libEventService.eventConfig, 'context.user');
+    this.eventConfig = _.get(this.libEventService.eventConfig, "context.user");
     this.userId = this.eventConfig.id;
     // this.userName = this.eventConfig.firstName + " " + this.eventConfig.lastName;
     this.similarEvents(this.eventDetailItem);
     this.getSpeakersList(this.userId);
     this.getAttendeeList(this.eventDetailItem.identifier);
     this.roles = this.eventCreatorInfo.roles;
-    this.roles.forEach((element) => 
-    { var creatorsRoleArray:any = [];
+    this.roles.forEach((element) => {
+      var creatorsRoleArray: any = [];
       creatorsRoleArray = element.role;
-      this.roleList.push(creatorsRoleArray);}
-    );
+      this.roleList.push(creatorsRoleArray);
+    });
   }
 
   // development for scroller
@@ -71,11 +71,9 @@ export class AdvanceEventDetailComponent implements OnInit {
     el.scrollTop = 0;
   }
 
+  slideConfig = { slidesToShow: 3, slidesToScroll: 2 };
 
-  slideConfig = { "slidesToShow": 3, "slidesToScroll":2 };
-
-  truncateData(truncate)
-  {
+  truncateData(truncate) {
     this.isTruncate = truncate;
   }
 
@@ -83,21 +81,19 @@ export class AdvanceEventDetailComponent implements OnInit {
     // this.translate.use(lang);
   }
 
-  similarEvents(eventDetailItem)
-  {
-
-    this.Filterdata ={
-      "status":["live"],
-      "objectType": "Event",
-      "subject": eventDetailItem.subject,
-      "medium": eventDetailItem.medium,
-      "board": eventDetailItem.board,
-      "gradeLevel":[eventDetailItem.gradeLevel]
+  similarEvents(eventDetailItem) {
+    this.Filterdata = {
+      status: ["live"],
+      objectType: "Event",
+      subject: eventDetailItem.subject,
+      medium: eventDetailItem.medium,
+      board: eventDetailItem.board,
+      gradeLevel: [eventDetailItem.gradeLevel],
     };
 
-    this.eventListService.getEventList(this.Filterdata,this.query).subscribe((data) => {
-      if (data.responseCode == "OK")
-        {
+    this.eventListService.getEventList(this.Filterdata, this.query).subscribe(
+      (data) => {
+        if (data.responseCode == "OK") {
           // this.similarEventList = data.result.Event;
 
           // this.similarEventList.forEach((item, index) => {
@@ -110,33 +106,37 @@ export class AdvanceEventDetailComponent implements OnInit {
           //    this.eventService.getEventStatus(event);
           //  });
 
-           this.similarEventList = data.result.Event;
-           let index = data.result.Event.findIndex(x => x.identifier === eventDetailItem.identifier);
-           let removedArray = data.result.Event.splice(index, 1);
- 
-           this.similarEventList.forEach(async event => {         
-              this.eventService.getEventStatus(event);
-              if(event.eventType != 'Online')
-              {
-                var array = JSON.parse("[" + event.venue + "]");
-                console.log("(((",array);
-                event.venue = array[0].name;
-              }
+          this.similarEventList = data.result.Event;
+          let index = data.result.Event.findIndex(
+            (x) => x.identifier === eventDetailItem.identifier
+          );
+          let removedArray = data.result.Event.splice(index, 1);
 
-            });
-            console.log("&***",this.similarEventList);
+          this.similarEventList.forEach(async (event) => {
+            this.eventService.getEventStatus(event);
+            if (event.eventType != "Online") {
+              var array = JSON.parse("[" + event.venue + "]");
+              console.log("(((", array);
+              event.venue = array[0].name;
+            }
+          });
+          console.log("&***", this.similarEventList);
         }
       },
-       (err) => {
-        this.sbToastService.showIziToastMsg(err.error.result.messages[0], 'error');
-      });
+      (err) => {
+        this.sbToastService.showIziToastMsg(
+          err.error.result.messages[0],
+          "error"
+        );
+      }
+    );
   }
 
-  playContent(content){
+  playContent(content) {
     this.eventDetailData.emit(content);
   }
 
-  navToEventDetail(res){
+  navToEventDetail(res) {
     this.eventDetailData.emit(res);
 
     // this.router.navigate(['/play/event-detail'], {
@@ -145,17 +145,15 @@ export class AdvanceEventDetailComponent implements OnInit {
     //   }
     // });
 
-  //   this.router.navigateByUrl('/play/event-detail', { skipLocationChange: true }).then(() => {
-  //     this.router.navigate(['EventDetailComponent']);
-  // });
-}
+    //   this.router.navigateByUrl('/play/event-detail', { skipLocationChange: true }).then(() => {
+    //     this.router.navigate(['EventDetailComponent']);
+    // });
+  }
 
-  slickInit(event) { }
+  slickInit(event) {}
 
-  getSpeakersList(id)
-  {
-    this.usersService.getUser(id).subscribe((data) => {
-      });
+  getSpeakersList(id) {
+    this.usersService.getUser(id).subscribe((data) => {});
   }
 
   // getAttendeeList()
@@ -165,22 +163,22 @@ export class AdvanceEventDetailComponent implements OnInit {
   //   }
   // }
 
-  getAttendeeList(eventId)
-  {
-    let filters ={
-      "courseId": eventId,
-      "enrollmentType": "open"
-   };
+  getAttendeeList(eventId) {
+    let filters = {
+      courseId: eventId,
+      // "enrollmentType": "open"
+    };
 
     this.eventService.getBatches(filters).subscribe((res) => {
-      if (res.responseCode == "OK")
-      {
-        this.eventService.getAttendanceList(eventId,res.result.response.content[0]['batchId']).subscribe((data) => {
-         this.attendanceList = data.result.content;
-         this.showAttendeeList= true;
-        //  this.getEnrollEventUsersData(this.attendanceList);
-       });
+      if (res.responseCode == "OK") {
+        this.eventService
+          .getAttendanceList(eventId, res.result.response.content[0]["batchId"])
+          .subscribe((data) => {
+            this.attendanceList = data.result.content;
+            this.showAttendeeList = true;
+            //  this.getEnrollEventUsersData(this.attendanceList);
+          });
       }
-    })
+    });
   }
 }

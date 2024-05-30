@@ -1,0 +1,53 @@
+{
+  "id": "api.content.read",
+  "ver": "4.0",
+  "ts": "2024-05-15T06:28:01ZZ",
+  "params": {
+    "resmsgid": "ab176edc-f0aa-4778-b207-e61dee8925e6",
+    "msgid": null,
+    "err": null,
+    "status": "successful",
+    "errmsg": null
+  },
+  "responseCode": "OK",
+  "result": {
+    "event": {
+      "venue": {
+        "name": null
+      },
+      "code": "1234",
+      "registrationStartDate": "2024-05-15",
+      "endDate": "2024-05-15",
+      "description": "Demo ",
+      "createdOn": "2024-05-15T06:17:52.914+0000",
+      "objectType": "Event",
+      "registrationEndDate": "2024-05-15",
+      "lastUpdatedOn": "2024-05-15T06:17:52.914+0000",
+      "startTime": "11:44:10+05:30",
+      "contentType": "Event",
+      "trackable": {
+        "enabled": "Yes",
+        "autoBatch": "Yes"
+      },
+      "onlineProviderData": {
+        "meetingLink": "https://meet.new"
+      },
+      "owner": "6f7c0d19-dbc3-42a5-883c-6d7ae4b249d7",
+      "identifier": "do_11405545572522393612",
+      "lastStatusChangedOn": "2024-05-15T06:17:52.914+0000",
+      "audience": ["Administrator", "Student", "Teacher"],
+      "visibility": "Default",
+      "consumerId": "111c1220-3f1e-4ba2-9de9-5869cfe06662",
+      "onlineProvider": "Google Meet",
+      "eventType": "Online",
+      "languageCode": [],
+      "version": 2,
+      "versionKey": "1715753872914",
+      "leafNodesCount": 1,
+      "name": "Demo ",
+      "endTime": "12:44:10+05:30",
+      "startDate": "2024-05-15",
+      "status": "Draft"
+    }
+  }
+}

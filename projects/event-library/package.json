@@ -1,41 +1,54 @@
 {
-    "name": "ngtek-event-library",
-    "version": "1.0.215",
-    "peerDependencies": {
-        "@angular/common": "^8.2.14",
-        "@angular/core": "^8.2.14",
-        "rxjs": "^6.4.0"
-    },
-    "devDependencies": {
-        "@angular/cli": "^11.1.4"
-    },
-    "dependencies": {
-        "@angular/animations": "^11.2.1",
-        "@angular/cdk": "^8.2.3",
-        "@angular/material": "^8.2.3",
-        "@ng-bootstrap/ng-bootstrap": "~5.2.2",
-        "@ngx-translate/core": "^12.1.2",
-        "@ngx-translate/http-loader": "^4.0.0",
-        "@project-sunbird/common-consumption": "^3.6.9",
-        "@project-sunbird/common-consumption-v9": "^4.5.3",
-        "common-form-elements-event": "^4.1.10",
-        "@project-sunbird/sb-styles": "0.0.9",
-        "@project-sunbird/sb-themes": "0.0.30",
-        "angular-calendar": "^0.28.26",
-        "angularx-flatpickr": "^6.6.0",
-        "bootstrap-css-only": "^4.4.1",
-        "common-consumption-v9-event-cards": "^1.0.3",
-        "common-form-elements": "^4.0.17",
-        "flatpickr": "^4.6.9",
-        "font-awesome": "^4.7.0",
-        "hammerjs": "^2.0.8",
-        "jquery": "^3.6.0",
-        "lodash-es": "^4.17.21",
-        "ng2-material-dropdown": "^0.11.0",
-        "ngx-izitoast": "^1.0.1",
-        "ngx-pagination": "^5.0.0",
-        "ngx-slick": "^0.2.1",
-        "ngx-slick-carousel": "^0.5.1",
-        "slick-carousel": "^1.8.1"
-    }
+  "name": "ngtek-event-library",
+  "version": "1.1.2",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve --proxy-config proxy.config.json",
+    "build": "ng build event-library --prod && npm run copy:assets",
+    "install-dependencies:build-lib": "npm i && npm run build-lib",
+    "build_lib": "ng build event-library && npm run copy:assets",
+    "npm_pack": "cd dist/event-library && npm pack",
+    "package": "npm run build_lib && npm run npm_pack",
+    "copy:assets": "node scripts/copy-assets",
+    "test": "ng test",
+    "lint": "ng lint",
+    "e2e": "ng e2e"
+  },
+  "peerDependencies": {
+    "@angular/common": "^8.2.14",
+    "@angular/core": "^8.2.14",
+    "rxjs": "^6.4.0"
+  },
+  "devDependencies": {
+    "@angular/cli": "^11.1.4"
+  },
+  "dependencies": {
+    "@angular/animations": "^11.2.1",
+    "@angular/cdk": "^8.2.3",
+    "@angular/material": "^8.2.3",
+    "@ng-bootstrap/ng-bootstrap": "~5.2.2",
+    "@ngx-translate/core": "^12.1.2",
+    "@ngx-translate/http-loader": "^4.0.0",
+    "@project-sunbird/common-consumption": "^3.6.9",
+    "@project-sunbird/common-consumption-v9": "^4.5.3",
+    "@project-sunbird/sb-styles": "0.0.9",
+    "@project-sunbird/sb-themes": "0.0.30",
+    "angularx-flatpickr": "^6.6.0",
+    "bootstrap-css-only": "^4.4.1",
+    "common-consumption-v9-event-cards": "^1.0.3",
+    "common-form-elements": "4.0.17",
+    "common-form-elements-event": "^4.1.10",
+    "flatpickr": "^4.6.9",
+    "font-awesome": "^4.7.0",
+    "hammerjs": "^2.0.8",
+    "jquery": "^3.6.0",
+    "lodash-es": "^4.17.21",
+    "ng-multiselect-dropdown": "^1.0.0",
+    "ng2-material-dropdown": "^0.11.0",
+    "ngx-izitoast": "^1.0.1",
+    "ngx-pagination": "^5.0.0",
+    "ngx-slick": "^0.2.1",
+    "ngx-slick-carousel": "^0.5.1",
+    "slick-carousel": "^1.8.1"
+  }
 }

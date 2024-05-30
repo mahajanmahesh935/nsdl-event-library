@@ -1,6 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "resolveJsonModule": true,
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
@@ -11,30 +12,18 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "es2015",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2018",
-      "dom"
-    ],
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2018", "dom"],
+    "types": ["node"],
     // "paths": {
     //   "@mycompany/my-library": ["dist/my-library"],
     //   "@mycompany/my-library/*": ["dist/my-library/*"]
     // }
     "paths": {
-      "ngtek-event-library": [
-        "dist/event-library"
-      ],
-      "event-library/*": [
-        "dist/event-library/*"
-      ],
-      "rxjs": [
-          "node_modules/rxjs"
-        ],
-        "rxjs/*": [
-          "node_modules/rxjs/*"
-        ]
+      "ngtek-event-library": ["dist/event-library"],
+      "event-library/*": ["dist/event-library/*"],
+      "rxjs": ["node_modules/rxjs"],
+      "rxjs/*": ["node_modules/rxjs/*"]
     }
   },
   "angularCompilerOptions": {

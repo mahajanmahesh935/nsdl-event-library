@@ -1,0 +1,465 @@
+{
+  "request": {
+    "type": "content",
+    "action": "create",
+    "subType": "*",
+    "rootOrgId": "*",
+    "framework": "*",
+    "data": {
+      "templateName": "defaultTemplate",
+      "action": "create",
+      "properties": [
+        {
+          "names": "First Section",
+          "fields": [
+            {
+              "code": "name",
+              "dataType": "text",
+              "name": "Name",
+              "label": "Event Name",
+              "description": "Event Name",
+              "editable": true,
+              "placeholder": "Event Name",
+              "inputType": "text",
+              "required": true,
+              "displayProperty": "Editable",
+              "visible": true,
+              "renderingHints": {
+                "class": "sb-g-col-lg-1 required"
+              },
+              "index": 1,
+              "validations": [
+                {
+                  "type": "pattern",
+                  "value": "^[a-zA-Z0-9 &]*$",
+                  "message": "Invalid Input"
+                },
+                {
+                  "type": "required",
+                  "value": "80",
+                  "message": "Enter Event Name"
+                }
+              ]
+            },
+            {
+              "code": "eventType",
+              "dataType": "text",
+              "name": "Event Type",
+              "label": "Event Type",
+              "description": "Type of the event",
+              "editable": true,
+              "default": "",
+              "placeholder": "Select Event Type",
+              "inputType": "select",
+              "required": false,
+              "displayProperty": "Editable",
+              "visible": true,
+              "range": [
+                {
+                  "value": "Online",
+                  "label": "Virtual Event"
+                }
+              ],
+              "output": "value",
+              "validations": [
+                {
+                  "type": "required",
+                  "message": "Enter Event Type"
+                }
+              ],
+              "renderingHints": {
+                "class": "sb-g-col-lg-1 required"
+              },
+              "index": 2
+            },
+            {
+              "code": "description",
+              "dataType": "text",
+              "name": "Description",
+              "label": "Description",
+              "description": "Event Description",
+              "editable": true,
+              "placeholder": "Description",
+              "inputType": "textarea",
+              "required": true,
+              "displayProperty": "Editable",
+              "visible": true,
+              "renderingHints": {
+                "semanticColumnWidth": "twelve"
+              },
+              "index": 3,
+              "validations": [
+                {
+                  "type": "regex",
+                  "value": "^[a-zA-Z0-9 &]*$",
+                  "message": "Invalid Input"
+                }
+              ]
+            },
+            {
+              "code": "venue",
+              "dataType": "text",
+              "name": "Venue",
+              "label": "Venue",
+              "description": "Venue",
+              "editable": true,
+              "placeholder": "Venue",
+              "inputType": "textarea",
+              "required": false,
+              "displayProperty": "Editable",
+              "visible": true,
+              "renderingHints": {
+                "semanticColumnWidth": "twelve"
+              },
+              "index": 4,
+              "validations": [
+                {
+                  "type": "regex",
+                  "value": "^[a-zA-Z0-9 &]*$",
+                  "message": "Invalid Input"
+                }
+              ]
+            },
+            {
+              "code": "code",
+              "dataType": "text",
+              "name": "Code",
+              "label": "Code",
+              "description": "Code",
+              "editable": true,
+              "placeholder": "Code",
+              "inputType": "text",
+              "required": true,
+              "displayProperty": "Editable",
+              "visible": true,
+              "renderingHints": {
+                "class": "sb-g-col-lg-1 required"
+              },
+              "index": 5,
+              "validations": [
+                {
+                  "type": "regex",
+                  "value": "^[a-zA-Z0-9]*$",
+                  "message": "Invalid Input"
+                },
+                {
+                  "type": "required",
+                  "value": "80",
+                  "message": "Enter Code"
+                }
+              ]
+            },
+            {
+              "code": "onlineProvider",
+              "dataType": "text",
+              "name": "Online Provider",
+              "label": "Online Provider",
+              "description": "Online Provider",
+              "editable": true,
+              "placeholder": "E.g Zoom",
+              "inputType": "select",
+              "required": true,
+              "displayProperty": "Editable",
+              "range": ["BigBlueButton", "Google Meet", "Zoom", "Jitsi"],
+              "visible": true,
+              "renderingHints": {
+                "semanticColumnWidth": "twelve"
+              },
+              "index": 6,
+              "validations": [
+                {
+                  "type": "regex",
+                  "value": "^[a-zA-Z0-9 &]*$",
+                  "message": "Invalid Input"
+                }
+              ]
+            },
+            {
+              "code": "onlineProviderData",
+              "dataType": "text",
+              "name": "Online Provider Data",
+              "label": "Online Provider Data",
+              "description": "Online Provider Data",
+              "editable": true,
+              "placeholder": "https://meetingLink",
+              "inputType": "text",
+              "required": false,
+              "displayProperty": "Editable",
+              "visible": true,
+              "renderingHints": {
+                "semanticColumnWidth": "twelve"
+              },
+              "index": 7,
+              "validations": [
+                {
+                  "type": "regex",
+                  "value": "^[a-zA-Z0-9 &]*$",
+                  "message": "Invalid Input"
+                }
+              ]
+            },
+
+            {
+              "code": "eventVisibility",
+              "dataType": "text",
+              "name": "Event Visibility",
+              "label": "Event Visibility",
+              "description": "Visibility of the event",
+              "editable": true,
+              "placeholder": "Select Event Visibility",
+              "inputType": "select",
+              "required": false,
+              "displayProperty": "Editable",
+              "visible": true,
+              "range": ["Public", "Private"],
+              "renderingHints": {
+                "semanticColumnWidth": "six"
+              },
+              "index": 9
+            },
+
+            {
+              "code": "language",
+              "dataType": "text",
+              "name": "Language",
+              "label": "Language",
+              "description": "Language",
+              "editable": true,
+              "placeholder": "Select Language",
+              "inputType": "nestedselect",
+              "default": "",
+              "required": false,
+              "displayProperty": "Editable",
+              "visible": true,
+              "range": [
+                "English",
+                "Hindi",
+                "Assamese",
+                "Bengali",
+                "Gujarati",
+                "Kannada",
+                "Malayalam",
+                "Marathi",
+                "Nepali",
+                "Odia",
+                "Punjabi",
+                "Tamil",
+                "Telugu",
+                "Urdu",
+                "Sanskrit",
+                "Maithili",
+                "Munda",
+                "Santali",
+                "Juang",
+                "Ho"
+              ],
+              "renderingHints": {
+                "semanticColumnWidth": "six"
+              },
+              "index": 12
+            },
+            {
+              "code": "source",
+              "dataType": "text",
+              "name": "source",
+              "label": "Source",
+              "description": "Source",
+              "editable": true,
+              "placeholder": "Source",
+              "inputType": "text",
+              "required": false,
+              "displayProperty": "Editable",
+              "visible": true,
+              "renderingHints": {
+                "semanticColumnWidth": "twelve"
+              },
+              "index": 13,
+              "validations": [
+                {
+                  "type": "regex",
+                  "value": "^[a-zA-Z0-9 &]*$",
+                  "message": "Invalid Input"
+                }
+              ]
+            },
+            {
+              "code": "keywords",
+              "visible": true,
+              "editable": true,
+              "dataType": "list",
+              "name": "Keywords",
+              "description": "Keywords for the content",
+              "inputType": "keywords",
+              "label": "keywords",
+              "renderingHints": {
+                "class": "sb-g-col-lg-1"
+              },
+              "class": "sb-g-col-lg-1",
+              "placeholder": "Input text & PRESS enter",
+              "required": false,
+              "index": 14
+            },
+
+            {
+              "code": "startDate",
+              "visible": true,
+              "editable": true,
+              "dataType": "date",
+              "default": "dd:mm:yyyy",
+              "name": "start date",
+              "description": "start date",
+              "inputType": "date",
+              "label": "Start Date and Time (IST)",
+              "placeholder": "start date",
+              "required": true,
+              "validations": [
+                {
+                  "type": "required",
+                  "message": "Start Date is required"
+                }
+              ]
+            },
+            {
+              "code": "startTime",
+              "visible": true,
+              "editable": true,
+              "dataType": "time",
+              "default": "hh:mm:ss",
+              "name": "start time",
+              "description": "start time",
+              "inputType": "time",
+              "label": "start time",
+              "placeholder": "start time",
+              "required": true,
+              "validations": [
+                {
+                  "type": "required",
+                  "message": "Start Time is required"
+                }
+              ]
+            },
+            {
+              "code": "endDate",
+              "visible": true,
+              "editable": true,
+              "dataType": "date",
+              "default": "dd:mm:yyyy",
+              "depends": ["startDate"],
+              "name": "end date",
+              "description": "end date",
+              "inputType": "date",
+              "label": "End Date and Time (IST)",
+              "placeholder": "end date",
+              "required": true,
+              "validations": [
+                {
+                  "type": "required",
+                  "message": "End Date is required"
+                },
+                {
+                  "type": "compare",
+                  "criteria": {
+                    "<=": ["startTime"]
+                  },
+                  "message": "warning date should be greater than start date"
+                }
+              ]
+            },
+            {
+              "code": "endTime",
+              "visible": true,
+              "editable": true,
+              "dataType": "time",
+              "default": "hh:mm:ss",
+              "depends": ["startTime"],
+              "name": "end time",
+              "description": "end time",
+              "inputType": "time",
+              "label": "end time",
+              "placeholder": "end time",
+              "required": true,
+              "validations": [
+                {
+                  "type": "required",
+                  "message": "End Time is required"
+                }
+              ]
+            },
+            {
+              "code": "registrationStartDate",
+              "visible": true,
+              "editable": true,
+              "dataType": "date",
+              "default": "dd:mm:yyyy",
+              "name": "Registration Start Date",
+              "description": "Registration Start Date",
+              "inputType": "date",
+              "label": "Registration Start Date (IST)",
+              "placeholder": "Registration Start Date",
+              "required": true,
+              "validations": [
+                {
+                  "type": "required",
+                  "message": "Registration Start Date is required"
+                }
+              ]
+            },
+            {
+              "code": "registrationEndDate",
+              "visible": true,
+              "editable": true,
+              "dataType": "date",
+              "default": "dd:mm:yyyy",
+              "depends": ["registrationStartDate"],
+              "name": "Registration End Date",
+              "description": "Registration End Date",
+              "inputType": "date",
+              "label": "Registration End Date (IST)",
+              "placeholder": "Registration End Date",
+              "required": true,
+              "validations": [
+                {
+                  "type": "required",
+                  "message": "Registration End Date is required"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Second Section",
+          "fields": [
+            {
+              "code": "primaryCategory",
+              "dataType": "text",
+              "description": "Type",
+              "editable": false,
+              "renderingHints": {},
+              "inputType": "select",
+              "label": "Category",
+              "name": "Type",
+              "placeholder": "",
+              "required": true,
+              "visible": true,
+              "validations": []
+            },
+            {
+              "code": "additionalCategories",
+              "dataType": "list",
+              "depends": ["primaryCategory"],
+              "description": "Additonal Category of the Content",
+              "editable": false,
+              "inputType": "nestedselect",
+              "label": "Additional Category",
+              "name": "Additional Category",
+              "placeholder": "Select Additional Category",
+              "renderingHints": {},
+              "required": false,
+              "visible": true
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
