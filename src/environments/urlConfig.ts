@@ -4,7 +4,7 @@ export const urlConfig = {
   // create: "/event/v4/create",
   baseUrl: "https://devnulp.niua.org/",
 
-  create: "https://devnulp.niua.org/api/event/v4/create",
+  create: "http://localhost:3000/api/event/v4/create",
 
   // update: "/event/v4/update",
   update: "https://devnulp.niua.org/api/event/v4/update",
@@ -16,6 +16,9 @@ export const urlConfig = {
   publish: "https://devnulp.niua.org/api/event/v4/publish",
 
   gmeetcreate: "http://localhost:3000/event/gmeet/create",
+
+  gmeetget:
+    "https://devnulp.niua.org/event/gmeet/get?eventId=erukvncm7ta49nndssoekpe828",
 
   // enrollApi: "/v1/event/enroll",
   enrollApi: "https://devnulp.niua.org/api/course/v1/enrol",
@@ -41,10 +44,10 @@ export const urlConfig = {
   // search:"/v3/search",
   //   search: "https://devnulp.niua.org/api/event/v1/search",
 
-  search: "https://devnulp.niua.org/action/composite/v3/search",
+  search: "https://dev.sunbirdsaas.com/api/composite/v1/search",
 
   // search for asset library.
-  compositeSearch: "https://devnulp.niua.org/action/composite/v3/search",
+  compositeSearch: "https://dev.sunbirdsaas.com/api/composite/v1/search",
 
   // eventFormConfigApi: "/assets/api/event-create.json",
   eventFilterConfigApiSbForm: "/assets/api/event-filter-sbform.json",

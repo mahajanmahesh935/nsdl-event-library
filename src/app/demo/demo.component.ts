@@ -7,15 +7,7 @@ import { SbToastService } from "../../../projects/event-library/src/lib/events/s
 import { LibEventService } from "./../../../projects/event-library/src/lib/events/services/lib-event/lib-event.service";
 import * as _ from "lodash-es";
 import * as userEnrollEventDetailsMock from "../../assets/api/userEnrollEventDetails";
-
-// import {
-//   CalendarEvent,
-//   CalendarEventAction,
-//   CalendarEventTimesChangedEvent,
-//   CalendarView,
-//   CalendarEventTitleFormatter,
-// } from "angular-calendar";
-// import { typeOf } from 'projects/event-library/node_modules/uri-js/dist/esnext/util';
+import { DatePipe } from "@angular/common";
 
 const colors: any = {
   red: {
@@ -36,6 +28,7 @@ const colors: any = {
   selector: "app-demo",
   templateUrl: "./demo.component.html",
   styleUrls: ["./demo.component.scss"],
+  providers: [DatePipe],
 })
 export class DemoComponent implements OnInit {
   eventList: any;
@@ -70,6 +63,8 @@ export class DemoComponent implements OnInit {
   max: any;
   eventListCount: any;
   today = new Date();
+  startDate: Date | null = null;
+  endDate: Date | null = null;
   todayDate =
     this.today.getFullYear() +
     "-" +
@@ -93,6 +88,8 @@ export class DemoComponent implements OnInit {
   todaysCalenderEvent: any[];
   todaysDate: any;
   tempFlag?: any;
+  searchQuery: string = "";
+  eventType: string | null = null;
 
   constructor(
     private eventListService: EventListService,
@@ -100,7 +97,9 @@ export class DemoComponent implements OnInit {
     private eventDetailService: EventDetailService,
     private router: Router,
     private sbToastService: SbToastService,
-    private libEventService: LibEventService
+    private libEventService: LibEventService,
+    private datePipe: DatePipe,
+    private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit() {
@@ -227,6 +226,114 @@ export class DemoComponent implements OnInit {
     });
   }
 
+  onSearchChange(searchValue: string): void {
+    // Trim and convert to lower case
+    const trimmedSearchValue = searchValue.trim().toLowerCase();
+
+    // Update search query
+    this.query = trimmedSearchValue.length > 0 ? trimmedSearchValue : null;
+
+    // Call filter function whenever search query changes
+    this.onFilter();
+  }
+
+  onEventTypeChange(eventType: string): void {
+    this.eventType = eventType;
+    this.onFilter();
+  }
+
+  onDateChange(): void {
+    this.onFilter();
+  }
+
+  onFilter() {
+    this.isLoading = true;
+
+    let formattedStartDate: string | null = null;
+    let formattedEndDate: string | null = null;
+
+    if (this.startDate) {
+      formattedStartDate = this.datePipe.transform(
+        this.startDate,
+        "yyyy-MM-dd"
+      );
+    }
+
+    if (this.endDate) {
+      formattedEndDate = this.datePipe.transform(this.endDate, "yyyy-MM-dd");
+    }
+
+    const searchQuery = this.query ? this.query : null;
+
+    this.eventListService
+      .getFilteredEventList(
+        formattedStartDate,
+        formattedEndDate,
+        searchQuery,
+        this.eventType
+      )
+      .subscribe(
+        (data) => {
+          this.isLoading = false;
+
+          if (data.responseCode === "OK") {
+            this.eventList = data.result.Event;
+            this.eventListCount = data.result.count;
+
+            this.eventList.forEach((item, index) => {
+              const array = JSON.parse("[" + item.venue + "]");
+              this.eventList[index].venue = array[0].name;
+            });
+          } else {
+            this.eventList = [];
+            this.eventListCount = 0;
+          }
+        },
+        (err) => {
+          this.isLoading = false;
+          this.sbToastService.showIziToastMsg(
+            err.error.result.messages[0],
+            "error"
+          );
+        }
+      );
+  }
+
+  getFilteredEventList(
+    startDate: string,
+    endDate: string,
+    searchQuery: string
+  ) {
+    this.isLoading = true;
+    this.eventListService
+      .getFilteredEventList(startDate, endDate, searchQuery, this.eventType)
+      .subscribe(
+        (data) => {
+          this.isLoading = false;
+
+          if (data.responseCode === "OK") {
+            this.eventList = data.result.Event;
+            this.eventListCount = data.result.count;
+
+            this.eventList.forEach((item, index) => {
+              const array = JSON.parse("[" + item.venue + "]");
+              this.eventList[index].venue = array[0].name;
+            });
+          } else {
+            this.eventList = [];
+            this.eventListCount = 0;
+          }
+        },
+        (err) => {
+          this.isLoading = false;
+          this.sbToastService.showIziToastMsg(
+            err.error.result.messages[0],
+            "error"
+          );
+        }
+      );
+  }
+
   /**
    * For subscibe click action on event card
    */
@@ -293,33 +400,6 @@ export class DemoComponent implements OnInit {
       }
     );
   }
-
-  // showCalenderEvent() {
-  //   this.Filterdata = {
-  //     status: ["live"],
-  //     objectType: "Event",
-  //   };
-  //   this.dataLimit = "3000";
-  //   this.eventListService
-  //     .getEventList(this.Filterdata, this.query, this.sort_by, this.dataLimit)
-  //     .subscribe((data: any) => {
-  //       this.eventCalender = data.result.Event;
-  //       this.events = this.eventCalender.map((obj) => ({
-  //         start: new Date(obj.startDate),
-  //         title: obj.name,
-  //         starttime: obj.startTime,
-  //         end: new Date(obj.endDate),
-  //         // color: colors.red,
-  //         // cssClass: obj.color,
-  //         status: obj.status,
-  //         onlineProvider: obj.onlineProvider,
-  //         onlineProviderData: obj.onlineProviderData,
-  //         audience: obj.audience,
-  //         owner: obj.owner,
-  //         identifier: obj.identifier,
-  //       }));
-  //     });
-  // }
 
   showFilters() {
     this.eventListService.getFilterFormConfig().subscribe(
@@ -464,8 +544,7 @@ export class DemoComponent implements OnInit {
 
                   case "Upcoming":
                     var timeTemp: any = dTime.toLocaleTimeString() + "+05:30";
-                    //if (tempFilterData > dateTime ) {
-                    //                  if( tempEventList[k].startDate >= this.todayDate && tempEventList[k].startTime > timeTemp){
+
                     if (
                       tempEventList[k].startDate >= this.todayDate &&
                       tempEventList[k].startDate +
@@ -481,10 +560,7 @@ export class DemoComponent implements OnInit {
 
                   default:
                     var timeTemp: any = dTime.toLocaleTimeString() + "+05:30";
-                    // if (tempFilterData > dateTime) {
-                    // //if( tempEventList[k].startDate >= this.todayDate && tempEventList[k].startTime > timeTemp && tempEventList[k].endDate <= this.todayDate && tempEventList[k].endTime < timeTemp ){
-                    //   tempEventListData.push(tempEventList[k]);
-                    // }
+
                     if (
                       tempEventList[k].endDate >= this.todayDate &&
                       tempEventList[k].startDate +
@@ -519,25 +595,6 @@ export class DemoComponent implements OnInit {
                 this.eventList[index].venue = array[0].name;
               }
             });
-
-            // For calendar events
-            // this.events = this.eventList.map((obj) => ({
-            //   start: new Date(obj.startDate),
-            //   title: obj.name,
-            //   starttime: obj.startTime,
-            //   end: new Date(obj.endDate),
-            //   color: colors.red,
-            //   cssClass: obj.color,
-            //   status: obj.status,
-            //   onlineProvider: obj.onlineProvider,
-            //   onlineProviderData: obj.onlineProviderData,
-            //   audience: obj.audience,
-            //   owner: obj.owner,
-            //   identifier: obj.identifier,
-            //   startDate: obj.startDate,
-            //   endDate: obj.endDate,
-            //   endTime: obj.endTime,
-            // }));
           }
         },
         (err) => {

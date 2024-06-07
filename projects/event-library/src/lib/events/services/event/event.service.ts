@@ -4,6 +4,7 @@ import { UserConfigService } from "../userConfig/user-config.service";
 import { DatePipe } from "@angular/common";
 
 import { TimezoneCal } from "../../services/timezone/timezone.service";
+import { environment } from "../../environment";
 
 @Injectable({
   providedIn: "root",
@@ -85,10 +86,7 @@ export class EventService {
       },
     };
 
-    const BearerKey =
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIzVGRIUkFpTUFiRHN1SUhmQzFhYjduZXFxbjdyQjZrWSJ9.MotRsgyrPzt8O2jp8QZfWw0d9iIcZz-cfNYbpifx5vs";
-    const AuthUserToken =
-      "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJnaGFDNnd0U2Z6U3FkaXFzX3UxYzBMOVZCVDRtS0tUVEdxcU1KcU1OZUxZIn0.eyJqdGkiOiJmNWY4MDdlNS02OTgzLTQ5MDctOTIxNi04ZWYyNGUwNTcxMDQiLCJleHAiOjE2MzUyNzExMjYsIm5iZiI6MCwiaWF0IjoxNjM1MjI3OTI2LCJpc3MiOiJodHRwczovL3N0YWdpbmctc3VuYmlyZC5uc2RsLmNvLmluL2F1dGgvcmVhbG1zL3N1bmJpcmQiLCJhdWQiOlsicmVhbG0tbWFuYWdlbWVudCIsImFjY291bnQiXSwic3ViIjoiMTEyNzNmODctYmY2MC00MWNmLWJhMWUtYzc4YTI5ODFmNDhjIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoibG1zIiwiYXV0aF90aW1lIjowLCJzZXNzaW9uX3N0YXRlIjoiMWU2NjBkZjAtYjg2NC00MWFmLWI3NDctOTc1ZGYyMWZmZDNkIiwiYWNyIjoiMSIsImFsbG93ZWQtb3JpZ2lucyI6WyJodHRwczovL3N0YWdpbmctc3VuYmlyZC5uc2RsLmNvLmluIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsicmVhbG0tbWFuYWdlbWVudCI6eyJyb2xlcyI6WyJtYW5hZ2UtdXNlcnMiXX0sImxtcyI6eyJyb2xlcyI6WyJ1bWFfcHJvdGVjdGlvbiJdfSwiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiIiLCJjbGllbnRJZCI6ImxtcyIsImNsaWVudEhvc3QiOiIyMC4xOTguNjkuMTg3IiwicHJlZmVycmVkX3VzZXJuYW1lIjoic2VydmljZS1hY2NvdW50LWxtcyIsImNsaWVudEFkZHJlc3MiOiIyMC4xOTguNjkuMTg3IiwiZW1haWwiOiJzZXJ2aWNlLWFjY291bnQtbG1zQHBsYWNlaG9sZGVyLm9yZyJ9.cBXREgeXAA27oA6VHg1odsFnpj4mSdulhUieZF89sp_4xB_o9TYIpVUA9mTY601Cvhen7KRUUw2aP6gIHwdi-MKJgrWdSx3WmOkQW350ihD7pzneUcMn6O1NW92r84Jiwvqvg7O5Z-9r7EK4wnK66rJ5IfpSQb9Ebql0L7Yr45xTk_aDwVeIi-Nid-KuVgyOyUei14LXrktq-xVOa7_R6i2-qs3KmbskYSjmf9frlIGrZ264v9LkGJb2lSeWnsh0bD5IrQQnImpfX_sLsCVi5lmUqV2dMVcTwhGLG9Q3WknK98sj66PYdjYILE4srhhn86L0eX97n1GAMyItEAtC2A";
+    const BearerKey = environment.bearerToken;
 
     const option = {
       url: this.userConfigService.getConfigUrl().participantsList,
@@ -113,8 +111,7 @@ export class EventService {
       },
     };
 
-    const BearerKey =
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIzVGRIUkFpTUFiRHN1SUhmQzFhYjduZXFxbjdyQjZrWSJ9.MotRsgyrPzt8O2jp8QZfWw0d9iIcZz-cfNYbpifx5vs";
+    const BearerKey = environment.bearerToken;
 
     const option = {
       url: this.userConfigService.getConfigUrl().enrollUserEventList,
@@ -132,10 +129,7 @@ export class EventService {
   adminEnroll(cId, uId, batchDetails) {
     const headers = {
       "Content-Type": "application/json",
-      Authorization:
-        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIzVGRIUkFpTUFiRHN1SUhmQzFhYjduZXFxbjdyQjZrWSJ9.MotRsgyrPzt8O2jp8QZfWw0d9iIcZz-cfNYbpifx5vs",
-      "X-Authenticated-User-Token":
-        "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI0VzJHMGgzTVRhc01TekVzY2g2ZklsNG0tOUhQUl90Ny1lRkxqRzVxU1ZZIn0.eyJqdGkiOiJlNmFmMTNlZi04MDJhLTQzYTEtOGU0Yy1mOTQyNzc1OWRlZWUiLCJleHAiOjE3MTY5MTY0NDgsIm5iZiI6MCwiaWF0IjoxNzE2ODczMjQ4LCJpc3MiOiJodHRwczovL2Rldm51bHAubml1YS5vcmcvYXV0aC9yZWFsbXMvc3VuYmlyZCIsImF1ZCI6WyJyZWFsbS1tYW5hZ2VtZW50IiwiYWNjb3VudCJdLCJzdWIiOiJmMzllOWU1Ni04MzA2LTQ1N2YtODAwMC01YWE5Y2NhMDI3ZWIiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJsbXMiLCJhdXRoX3RpbWUiOjAsInNlc3Npb25fc3RhdGUiOiIwMjlhMDg4MC1kZTgxLTQ5MzYtOGNlZi0yY2Y3ZTA5YzI5YjQiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHBzOi8vZGV2bnVscC5uaXVhLm9yZyJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsib2ZmbGluZV9hY2Nlc3MiLCJhZG1pbiIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsicmVhbG0tbWFuYWdlbWVudCI6eyJyb2xlcyI6WyJtYW5hZ2UtdXNlcnMiXX0sImxtcyI6eyJyb2xlcyI6WyJ1bWFfcHJvdGVjdGlvbiJdfSwiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiIiLCJjbGllbnRJZCI6ImxtcyIsImNsaWVudEhvc3QiOiIxMTQuMTQzLjExOS4yMTgiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJzZXJ2aWNlLWFjY291bnQtbG1zIiwiY2xpZW50QWRkcmVzcyI6IjExNC4xNDMuMTE5LjIxOCIsImVtYWlsIjoic2VydmljZS1hY2NvdW50LWxtc0BwbGFjZWhvbGRlci5vcmcifQ.k5ILa28ApRF_WTtqKiX334r3-grOP7X_z3r_WmvzIXoZbYsolBkyjpzZJNHS4UYw9sCq4S3SDy8ooW3dBzOxY25i8lfv0Bl4LXI0zSCCAGC-TwdL4wYxG5p8gKZasjgThHh5_nPtUYiteUz016-YJ1H4gmakB77vDdFe3AwE1r2bzdvJp0JZUGCLUCsfB5SqwOg989ECnWzU0Eziq5rPEyiogPiAh2tmN9J57G5TpNbGFfca7xRpp1T996igoHHM_hkKoVU03rZzD8wZJa9COrjiHQcTOUx6rpWe0v966sbzbLEmfNZGhwDy7ciLgkafAMYR8TuNy7huzwaYD9S3-A",
+      Authorization: environment.bearerToken,
     };
     const requestBody = {
       request: {
@@ -157,10 +151,7 @@ export class EventService {
   enrollToEventPost(action, cId, uId, batchDetails) {
     const headers = {
       "Content-Type": "application/json",
-      Authorization:
-        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIzVGRIUkFpTUFiRHN1SUhmQzFhYjduZXFxbjdyQjZrWSJ9.MotRsgyrPzt8O2jp8QZfWw0d9iIcZz-cfNYbpifx5vs",
-      "X-Authenticated-User-Token":
-        "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI0VzJHMGgzTVRhc01TekVzY2g2ZklsNG0tOUhQUl90Ny1lRkxqRzVxU1ZZIn0.eyJqdGkiOiJlNmFmMTNlZi04MDJhLTQzYTEtOGU0Yy1mOTQyNzc1OWRlZWUiLCJleHAiOjE3MTY5MTY0NDgsIm5iZiI6MCwiaWF0IjoxNzE2ODczMjQ4LCJpc3MiOiJodHRwczovL2Rldm51bHAubml1YS5vcmcvYXV0aC9yZWFsbXMvc3VuYmlyZCIsImF1ZCI6WyJyZWFsbS1tYW5hZ2VtZW50IiwiYWNjb3VudCJdLCJzdWIiOiJmMzllOWU1Ni04MzA2LTQ1N2YtODAwMC01YWE5Y2NhMDI3ZWIiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJsbXMiLCJhdXRoX3RpbWUiOjAsInNlc3Npb25fc3RhdGUiOiIwMjlhMDg4MC1kZTgxLTQ5MzYtOGNlZi0yY2Y3ZTA5YzI5YjQiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHBzOi8vZGV2bnVscC5uaXVhLm9yZyJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsib2ZmbGluZV9hY2Nlc3MiLCJhZG1pbiIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsicmVhbG0tbWFuYWdlbWVudCI6eyJyb2xlcyI6WyJtYW5hZ2UtdXNlcnMiXX0sImxtcyI6eyJyb2xlcyI6WyJ1bWFfcHJvdGVjdGlvbiJdfSwiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiIiLCJjbGllbnRJZCI6ImxtcyIsImNsaWVudEhvc3QiOiIxMTQuMTQzLjExOS4yMTgiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJzZXJ2aWNlLWFjY291bnQtbG1zIiwiY2xpZW50QWRkcmVzcyI6IjExNC4xNDMuMTE5LjIxOCIsImVtYWlsIjoic2VydmljZS1hY2NvdW50LWxtc0BwbGFjZWhvbGRlci5vcmcifQ.k5ILa28ApRF_WTtqKiX334r3-grOP7X_z3r_WmvzIXoZbYsolBkyjpzZJNHS4UYw9sCq4S3SDy8ooW3dBzOxY25i8lfv0Bl4LXI0zSCCAGC-TwdL4wYxG5p8gKZasjgThHh5_nPtUYiteUz016-YJ1H4gmakB77vDdFe3AwE1r2bzdvJp0JZUGCLUCsfB5SqwOg989ECnWzU0Eziq5rPEyiogPiAh2tmN9J57G5TpNbGFfca7xRpp1T996igoHHM_hkKoVU03rZzD8wZJa9COrjiHQcTOUx6rpWe0v966sbzbLEmfNZGhwDy7ciLgkafAMYR8TuNy7huzwaYD9S3-A",
+      Authorization: environment.bearerToken,
     };
 
     const requestBody = {
@@ -230,8 +221,7 @@ export class EventService {
       },
     };
 
-    const BearerKey =
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIzVGRIUkFpTUFiRHN1SUhmQzFhYjduZXFxbjdyQjZrWSJ9.MotRsgyrPzt8O2jp8QZfWw0d9iIcZz-cfNYbpifx5vs";
+    const BearerKey = environment.bearerToken;
 
     const option = {
       url: this.userConfigService.getConfigUrl().batchlist,
@@ -250,15 +240,12 @@ export class EventService {
       request: requestValue,
     };
 
-    // const BearerKey = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiI1S0xKdzBHRUd0M2VEMmlKNjJ1M05tRG1QY3Z6b0trWSJ9.6Av5aPfb_m22sCbbXdUKW3dQc8cRAt3tiIcCyGHjCzg";
-
     const option = {
       url: this.userConfigService.getConfigUrl().createBatch,
       data: requestBody,
       header: {
         "Content-Type": "application/json",
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIzVGRIUkFpTUFiRHN1SUhmQzFhYjduZXFxbjdyQjZrWSJ9.MotRsgyrPzt8O2jp8QZfWw0d9iIcZz-cfNYbpifx5vs",
+        Authorization: environment.bearerToken,
       },
     };
 

@@ -36,6 +36,11 @@ import { AngularCountdownTimerModule } from "angular8-countdown-timer";
 // import { EventCardComponent } from './components/event-card/event-card.component';
 // import { EventCardV2Component } from './components/event-card-v2/event-card-v2.component';
 import { CommonConsumptionModule } from "common-consumption-v9-event-cards";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatInputModule } from "@angular/material/input";
+import { MatSelectModule } from "@angular/material/select";
+import { MatOptionModule, MatNativeDateModule } from "@angular/material/core";
+import { MatDatepickerModule } from "@angular/material/datepicker";
 
 @NgModule({
   declarations: [
@@ -69,6 +74,12 @@ import { CommonConsumptionModule } from "common-consumption-v9-event-cards";
     SuiModule,
     InfiniteScrollModule,
     AngularCountdownTimerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     // Specify your library as an import
     // SlickModule.forRoot(),
     SlickCarouselModule,

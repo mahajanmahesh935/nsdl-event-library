@@ -14,28 +14,55 @@
   >
   <hr />
 </div>
-<!-- <div *ngIf="tab == 'list'" class="classic-theme">
-    <div class="">
-        <div class="sb-prominent-filter pb-8 px-16">
-            <sb-event-filter
-                (filterChangeEvent)="getFilteredData($event)"
-                *ngIf="filterConfig"
-                [filterLayout]="false"
-                [isOpen]="false"
-                [filterConfig]="filterConfig">
-            </sb-event-filter>
-        </div>
+<div class="search-box-container">
+  <mat-form-field appearance="fill">
+    <mat-label>Search Events</mat-label>
+    <input
+      matInput
+      [(ngModel)]="searchQuery"
+      (ngModelChange)="onSearchChange($event)"
+      (keyup.enter)="onSearch()"
+      placeholder="Search events"
+    />
+  </mat-form-field>
+</div>
 
-        <div *ngIf="eventList?.length > 0 && eventList != 'undefined'" class="ui container mt-24" >
-            <sb-event-list
-                [list]="eventList"
-                [myEvents]="myEvents"
-                (eventDetailData)="navToEventDetail($event)">
-            </sb-event-list>
-        </div>
-    </div>
-</div> -->
+<div>
+  <mat-form-field appearance="fill">
+    <mat-label>Start Date</mat-label>
+    <input matInput [matDatepicker]="startDatePicker" [(ngModel)]="startDate" />
+    <mat-datepicker-toggle
+      matSuffix
+      [for]="startDatePicker"
+    ></mat-datepicker-toggle>
+    <mat-datepicker #startDatePicker></mat-datepicker>
+  </mat-form-field>
 
+  <mat-form-field appearance="fill" class="ml-16">
+    <mat-label>End Date</mat-label>
+    <input
+      matInput
+      [matDatepicker]="endDatePicker"
+      [(ngModel)]="endDate"
+      (dateChange)="onDateChange()"
+    />
+    <mat-datepicker-toggle
+      matSuffix
+      [for]="endDatePicker"
+    ></mat-datepicker-toggle>
+    <mat-datepicker #endDatePicker></mat-datepicker>
+  </mat-form-field>
+</div>
+<mat-form-field appearance="fill" class="ml-16">
+  <mat-label>Event Type</mat-label>
+  <mat-select
+    [(value)]="eventType"
+    (selectionChange)="onEventTypeChange($event.value)"
+  >
+    <mat-option value="Public">Public</mat-option>
+    <mat-option value="Private">Private</mat-option>
+  </mat-select>
+</mat-form-field>
 <div
   *ngIf="tab == 'list'"
   class="sbt-fluid-content-bg sbt-home-search-component"
@@ -97,10 +124,6 @@
                       No Events Found
                     </div>
                     <p class="fs-0-92 mt-8 text-center board-text"></p>
-                    <!-- <div tabindex="0" *ngIf="showExploreContentButton && subTitle" class="fs-0-785 sub-title py-24">{{subTitle | interpolate:'{instance}': instance}}</div>
-                                  <button tabindex="0" appTelemetryInteract [telemetryInteractEdata]="exploreMoreContentEdata" *ngIf="showExploreContentButton" type="button" id="browse" class="sb-btn sb-btn-primary sb-btn-normal mb-8" (click)="handleEvent()">
-                                    Explore more content
-                                  </button> -->
                   </div>
                 </div>
               </div>
@@ -111,28 +134,6 @@
     </div>
   </div>
 </div>
-<!-- <div *ngIf="tab == 'list'" class="sbt-fluid-content-bg"> -->
-<!-- <div class="sb-g sbt-container sbt-page-content">
-        <div class="sb-g-col-xs-12 sb-g-col-md-0 sb-g-col-lg-3 sb-g-col-xxxl-4">
-            <sb-event-filter
-                (filterChangeEvent)="getFilteredData($event)"
-                *ngIf="filterConfig"
-                [filterLayout]="true"
-                [isOpen]="true"
-                [filterConfig]="filterConfig">
-            </sb-event-filter>
-        </div> -->
-<!-- <sb-event-filter (filterChangeEvent)="getFilteredData($event)" *ngIf="filterConfig" [filterConfig]="filterConfig"></sb-event-filter> -->
-<!-- <div *ngIf="eventList?.length > 0 && eventList != 'undefined'" class="sb-g-col-xs-12 sb-g-col-md-0 sb-g-col-lg-9 sb-g-col-xxxl-12">
-            <sb-event-list
-                [list]="eventList"
-                [myEvents]="myEvents"
-                (eventDetailData)="navToEventDetail($event)">
-            </sb-event-list>
-        </div>
-    </div> -->
-<!-- <sb-event-list [list]="eventList"[myEvents]="myEvents" (eventDetailData)="navToEventDetail($event)"></sb-event-list> -->
-<!-- </div> -->
 
 <div
   *ngIf="isLoading"
@@ -152,9 +153,6 @@
   ></div>
 </div>
 
-<!-- <div *ngIf="tab == 'list'">
-    <sb-event-list [list]="eventList" [toSort]=true (eventDetailData)="navToEventDetail($event)"></sb-event-list>
-</div> -->
 <div *ngIf="tab == 'detail'">
   {{ eventItem?.lenght }}
   <sb-cover-event-detail
@@ -191,23 +189,7 @@
   <sb-enroll-event-users></sb-enroll-event-users>
   <!-- <sb-enroll-event-users [enrollEventDetails]="enrollUsers"></sb-enroll-event-users> -->
 </div>
-<div *ngIf="tab == 'calender'">
-  <!-- <sb-event-filter
-        (filterChangeEvent)="getFilteredData($event)"
-        *ngIf="filterConfig"
-        [filterConfig]="filterConfig">
-    </sb-event-filter>
-    <lib-event-calender
-        *ngIf="events"
-        [events]='events'
-        [todayCalenderEvent]='todaysCalenderEvent'
-        [todayDates]='todaysDate'
-        [layoutConfig]="true"
-        (eventDetailData)="navToEventDetail($event)"
-        [tempFlags]='tempFlag'>
-    </lib-event-calender> -->
-  <br /><br /><br />
-</div>
+<div *ngIf="tab == 'calender'"><br /><br /><br /></div>
 <div *ngIf="tab == 'user-detail'">
   <lib-user-detailed-attendance
     *ngIf="userEnrollEventDetails && eventItem"

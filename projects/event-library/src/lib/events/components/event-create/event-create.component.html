@@ -16,7 +16,7 @@
     (iconEmitter)="appIconDataHandler($event)"
     [libEventServicesData]="ImageConfig"
   ></lib-collection-icon>
-  <ng-container *ngIf="isNew; then New; else Edit"> </ng-container>
+  <ng-container *ngIf="isNew; then New; else Edit"></ng-container>
   <ng-template #New>
     <div
       *ngIf="
@@ -31,17 +31,6 @@
         (valueChanges)="valueChanges($event)"
       >
       </sb-event-dynamic-form>
-      <!-- <sb-form
-                class="label-1"
-                [config]="formFieldProperties"
-                (initialize)="output($event)"
-                (statusChanges)="onStatusChanges($event)"
-                (valueChanges)="valueChanges($event)">
-             </sb-form> -->
-
-      <!-- <sb-form [config]="formFieldProperties" (initialize)="output($event)"
-             (statusChanges)="onStatusChanges($event)"
-             (valueChanges)="valueChanges($event)"></sb-form> -->
     </div>
   </ng-template>
   <ng-template #Edit>
@@ -54,14 +43,30 @@
       </sb-event-dynamic-form>
     </div>
   </ng-template>
-
-  <!-- <div *ngIf="users">
+  <div *ngIf="isPrivateEvent() && users.length > 0">
     <label for="user-select">Select Users:</label>
-    <select id="user-select" multiple>
-      <option *ngFor="let user of users" [ngValue]="user.id">
-        {{ user.firstName }} {{ user.lastName }}
-      </option>
-    </select>
+    <mat-form-field appearance="fill">
+      <mat-label>Select users</mat-label>
+      <mat-select [(ngModel)]="selectedUserIds" multiple>
+        <mat-option *ngFor="let user of users" [value]="user.userId">
+          {{ user.firstName }} {{ user.lastName }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <!-- <div class="instructions mt-20">
+    <h3>Instructions for the Host:</h3>
+    <ol>
+      <li>The host needs to start recording.</li>
+      <li>
+        Manage participants, mute others, and control other settings manually
+        from the Google Meet interface.
+      </li>
+      <li>
+        Use the Host controls icon (shield with a lock) to manage settings.
+      </li>
+    </ol>
   </div> -->
 
   <div class="d-flex my-24 flex-jc-flex-end">
@@ -72,7 +77,7 @@
     >
       Cancel
     </button>
-    <!-- //@TODO - Added [ngClass] in below btton-->
+    <!-- //@TODO - Added [ngClass] in below button-->
     <button
       [disabled]="isDisabled"
       type="button"
@@ -98,6 +103,7 @@
       Save As Draft
     </button>
   </div>
+
   <p class="d-flex my-24 flex-jc-flex-end" *ngIf="this.isDisabled">
     Publish event's cannot be saved as draft and save to publish.
   </p>

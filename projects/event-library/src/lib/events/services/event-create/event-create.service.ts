@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { SbToastService } from "../../services/iziToast/izitoast.service";
 import { UserConfigService } from "../userConfig/user-config.service";
 import { DataService } from "../data-request/data-request.service";
+import { environment } from "../../environment";
 
 @Injectable({
   providedIn: "root",
@@ -86,8 +87,7 @@ export class EventCreateService {
       data: requestBody,
       header: {
         "Content-Type": "application/json",
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIzVGRIUkFpTUFiRHN1SUhmQzFhYjduZXFxbjdyQjZrWSJ9.MotRsgyrPzt8O2jp8QZfWw0d9iIcZz-cfNYbpifx5vs",
+        // Authorization: environment.bearerToken,
       },
     };
 
@@ -97,7 +97,15 @@ export class EventCreateService {
   creategmeetEvent(formData) {
     const requestBody = {
       request: {
-        event: formData,
+        event: {
+          event_name: formData.name,
+          description: formData.description,
+          event_type: formData.eventType,
+          start_time: formData.startTime,
+          start_date: formData.startDate,
+          end_time: formData.endTime,
+          end_date: formData.endDate,
+        },
       },
     };
 
@@ -107,7 +115,6 @@ export class EventCreateService {
       header: {
         "Content-Type": "application/json",
         // Authorization:
-        //   "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIzVGRIUkFpTUFiRHN1SUhmQzFhYjduZXFxbjdyQjZrWSJ9.MotRsgyrPzt8O2jp8QZfWw0d9iIcZz-cfNYbpifx5vs",
       },
     };
 
@@ -134,6 +141,36 @@ export class EventCreateService {
 
     // this.sbToastService.showIziToastMsg("New Event Created Successfully", 'success');
   }
+
+  getGmeetLink() {
+    const option = {
+      url: this.userConfigService.getConfigUrl().gmeetget,
+    };
+
+    return this.dataService.get(option);
+  }
+
+  updateEventwithGmeetLink(formData) {
+    const requstBody = {
+      request: {
+        event: {
+          onlineProviderData: {
+            formData,
+          },
+        },
+      },
+    };
+    const option = {
+      url:
+        this.userConfigService.getConfigUrl().update +
+        "/" +
+        formData["identifier"],
+      data: requstBody,
+      header: { "Content-Type": "application/json" },
+    };
+
+    return this.dataService.patch(option);
+  }
   /**
    * For publish event
    */
@@ -142,8 +179,7 @@ export class EventCreateService {
       url: this.userConfigService.getConfigUrl().publish + "/" + identifier,
       header: {
         "Content-Type": "application/json",
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIzVGRIUkFpTUFiRHN1SUhmQzFhYjduZXFxbjdyQjZrWSJ9.MotRsgyrPzt8O2jp8QZfWw0d9iIcZz-cfNYbpifx5vs",
+        Authorization: environment.bearerToken,
       },
     };
 

@@ -10,7 +10,11 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { UserListComponent } from "./user-list/user-list.component";
 import { UserDetailComponent } from "./user-detail/user-detail.component";
 import { UserFomComponent } from "./user-fom/user-fom.component";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatSelectModule } from "@angular/material/select";
+import { MatOptionModule } from "@angular/material/core";
 // import { NgMultiSelectDropDownModule } from "ng-multiselect-dropdown";
+import { NgSelectModule } from "@ng-select/ng-select";
 
 import * as configData from "../environments/urlConfig";
 
@@ -20,6 +24,10 @@ import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { DemoComponent } from "./demo/demo.component";
 import { EventDetailComponent } from "./event-detail/event-detail.component";
 import { EnrollUsersComponent } from "./enroll-users/enroll-users.component";
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatNativeDateModule } from "@angular/material/core";
+import { MatInputModule } from "@angular/material/input";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -38,7 +46,15 @@ import { EnrollUsersComponent } from "./enroll-users/enroll-users.component";
     EventLibraryModule.forChild(configData.urlConfig),
     BrowserAnimationsModule,
     HttpClientModule,
-    // NgMultiSelectDropDownModule.forRoot(),
+    NgSelectModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
     // TranslateModule.forRoot({
     //   loader: {
     //     provide: TranslateLoader,

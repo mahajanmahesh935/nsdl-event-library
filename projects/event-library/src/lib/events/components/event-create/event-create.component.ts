@@ -27,8 +27,10 @@ import { ImageSearchService } from "../../services/image-search/image-search.ser
 import * as _ from "lodash-es";
 import { analyzeAndValidateNgModules } from "@angular/compiler";
 import { LibEventService } from "../../services/lib-event/lib-event.service";
-// import  userData from "../../../../../../../src/assets/api/userList.json";
-// const eventFormConfig = require("../../../../../../../src/assets/api/useList.json");
+import { fromEvent } from "rxjs";
+import { debounceTime, map } from "rxjs/operators";
+import { userData } from "../../../assets/usersLive";
+// const userData = require("../../../../../../../src/assets/api/useList.json");
 import {
   of as observableOf,
   throwError as observableThrowError,
@@ -42,27 +44,29 @@ import {
   encapsulation: ViewEncapsulation.None,
 })
 export class EventCreateComponent implements OnInit {
-  @Input("formFieldProperties") formFieldProperties: any;
+  @Input() formFieldProperties: any;
 
   // @Input() userId: any;
   userId: any;
   eventConfig: any;
   initialFormFieldProperties: any;
   // users: any[] = eventFormConfig.result.response.content;
+  users: any[] = (userData as any).result.response.content;
+  // users: any[];
   selectedUser: any;
   selectedUserList: string[] = [];
+  dropdownSettings = {};
   // console.log(user);
 
   @Output() closeSaveForm = new EventEmitter();
   @Output() navAfterSave = new EventEmitter();
 
   today = new Date();
-  todayDate =
-    this.today.getFullYear() +
-    "-" +
-    ("0" + (this.today.getMonth() + 1)).slice(-2) +
-    "-" +
-    ("0" + this.today.getDate()).slice(-2);
+  todayDate = `${this.today.getFullYear()}-${(
+    "0" +
+    (this.today.getMonth() + 1)
+  ).slice(-2)}-${("0" + this.today.getDate()).slice(-2)}`;
+  // todayDate = new Date().toISOString().slice(0, 10);
 
   formValues: any;
 
@@ -146,7 +150,10 @@ export class EventCreateComponent implements OnInit {
     private userConfigService: UserConfigService,
     private imageSearchService: ImageSearchService,
     public libEventService: LibEventService
-  ) {}
+  ) {
+    // this.users = eventFormConfig.result.response.content;
+    this.selectedUser = [];
+  }
 
   // Ankita changes
   setAppIconData() {
@@ -166,23 +173,6 @@ export class EventCreateComponent implements OnInit {
     }
   }
 
-  isSelected(userId: string): boolean {
-    return this.selectedUserIds.includes(userId);
-  }
-
-  toggleSelection(userId: string): void {
-    const index = this.selectedUserIds.indexOf(userId);
-    if (index > -1) {
-      this.selectedUserIds.splice(index, 1); // Remove if already selected
-    } else {
-      this.selectedUserIds.push(userId); // Add if not selected
-    }
-  }
-
-  getSelectedUserIds(): string[] {
-    console.log(this.selectedUserIds);
-    return this.selectedUserIds;
-  }
   isReviewMode() {
     // this.imageSearchService.getEditMode().subscribe((data: any) => {
     this.editmode = "edit";
@@ -192,7 +182,22 @@ export class EventCreateComponent implements OnInit {
   }
 
   ngOnInit() {
-    // console.log("------", this.user);
+    console.log(this.formFieldProperties, "uuuuuuuu");
+
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: "id",
+      textField: "firstName",
+      selectAllText: "Select All",
+      unSelectAllText: "Unselect All",
+      itemsShowLimit: 5,
+      allowSearchFilter: true,
+    };
+    // ($(".ui.dropdown") as any).dropdown({
+    //   fullTextSearch: true,
+    //   forceSelection: false,
+    // });
+    // console.log("------", this.users);
     // console.log("");
     const response = this.eventCreateService.getUserData();
     console.log("response---------", response);
@@ -235,6 +240,24 @@ export class EventCreateComponent implements OnInit {
     let group = {};
   }
 
+  isSelected(userId: string): boolean {
+    return this.selectedUserIds.includes(userId);
+  }
+
+  toggleSelection(userId: string): void {
+    const index = this.selectedUserIds.indexOf(userId);
+    if (index > -1) {
+      this.selectedUserIds.splice(index, 1);
+    } else {
+      this.selectedUserIds.push(userId);
+    }
+  }
+
+  getSelectedUserIds(): string[] {
+    console.log(this.selectedUserIds);
+    return this.selectedUserIds;
+  }
+
   // onUserChange(event: Event) {
   //   this.selectedUser = (event.target as HTMLSelectElement).value;
   //   console.log("Selected user:", this.selectedUser);
@@ -244,6 +267,10 @@ export class EventCreateComponent implements OnInit {
   // Ankita changes
   ngOnChanges() {
     this.setAppIconData();
+  }
+
+  isPrivateEvent(): boolean {
+    return this.formValues?.eventVisibility === "Private";
   }
 
   /*
@@ -258,7 +285,9 @@ export class EventCreateComponent implements OnInit {
             this.tempEventType = formField.default ? formField.default : null;
             this.setEventTypeDependentFields(formField.default);
             break;
-
+          case "eventVisibilty":
+            this.setEventTypeDependentFields("Private");
+            break;
           case "registrationStartDate":
           case "registrationEndDate":
           case "startDate":
@@ -304,6 +333,10 @@ export class EventCreateComponent implements OnInit {
         this.formFieldProperties[1].fields[2].editable = false;
         this.formFieldProperties[1].fields[3].editable = false;
         break;
+
+      case "Private":
+        this.formFieldProperties[1].fields[13].inputType = "hidden";
+        this.formFieldProperties[1].fields[13].editable = false;
 
       default:
         this.formFieldProperties[1].fields[1].editable = false;
@@ -416,12 +449,12 @@ export class EventCreateComponent implements OnInit {
   }
   setOnlineProviderDependentFields(value) {
     switch (value) {
-      case "BigBlueButton":
+      case "Zoom":
         this.formFieldProperties[1].fields[3].editable = false;
         this.formFieldProperties[1].fields[3].placeholder = "Auto Generated";
         break;
 
-      case "Google Meet":
+      case "BigBlueButton":
       case "Zoom":
       case "Jitsi":
         this.formFieldProperties[1].fields[3].editable = true;
@@ -500,6 +533,9 @@ export class EventCreateComponent implements OnInit {
         "Please enter End event time",
         "warning"
       );
+    } else if (this.formValues.eventVisibility === "Private") {
+      this.formValues.registrationStartDate = this.todayDate;
+      this.formValues.registrationEndDate = this.todayDate;
     } else if (
       this.formValues.registrationStartDate == undefined ||
       this.formValues.registrationStartDate == ""
@@ -528,42 +564,43 @@ export class EventCreateComponent implements OnInit {
       );
     } else if (
       this.formValues.startDate < this.formValues.registrationStartDate &&
-      this.formValues.startDate != this.formValues.registrationStartDate
+      this.formValues.startDate != this.formValues.registrationStartDate &&
+      this.formValues.eventVisibility == "Public"
     ) {
       this.sbToastService.showIziToastMsg(
         "Registration start date should be less than event start date",
         "warning"
       );
-    } else if (
-      !this.dateValidation(
-        this.formValues.registrationStartDate,
-        this.formValues.registrationEndDate
-      )
-    ) {
-      this.sbToastService.showIziToastMsg(
-        "Registration end date should be greater than registration start date",
-        "warning"
-      );
-    } else if (
-      !this.dateValidation(
-        this.formValues.registrationStartDate + " 00:00:00",
-        this.formValues.endDate
-      )
-    ) {
-      this.sbToastService.showIziToastMsg(
-        "Registration start date should be less than event end date",
-        "warning"
-      );
-    } else if (
-      !this.dateValidation(
-        this.formValues.registrationEndDate + " 00:00:00",
-        this.formValues.endDate
-      )
-    ) {
-      this.sbToastService.showIziToastMsg(
-        "Registration end date should be less than event end date",
-        "warning"
-      );
+      // } else if (
+      //   !this.dateValidation(
+      //     this.formValues.registrationStartDate,
+      //     this.formValues.registrationEndDate
+      //   )
+      // ) {
+      //   this.sbToastService.showIziToastMsg(
+      //     "Registration end date should be greater than registration start date",
+      //     "warning"
+      //   );
+      // } else if (
+      //   !this.dateValidation(
+      //     this.formValues.registrationStartDate + " 00:00:00",
+      //     this.formValues.endDate
+      //   )
+      // ) {
+      //   this.sbToastService.showIziToastMsg(
+      //     "Registration start date should be less than event end date",
+      //     "warning"
+      //   );
+      // } else if (
+      //   !this.dateValidation(
+      //     this.formValues.registrationEndDate + " 00:00:00",
+      //     this.formValues.endDate
+      //   )
+      // ) {
+      //   this.sbToastService.showIziToastMsg(
+      //     "Registration end date should be less than event end date",
+      //     "warning"
+      //   );
     } else if (
       this.formValues.onlineProvider != "BigBlueButton" &&
       this.formValues.onlineProviderData == undefined &&
@@ -602,15 +639,93 @@ export class EventCreateComponent implements OnInit {
         }
         this.eventCreateService.createEvent(this.formValues).subscribe(
           (data) => {
-            if (data.responseCode == "OK") {
+            if (data.responseCode === "OK") {
               this.dataSubmitted(data, "create");
+
               this.eventCreateService
                 .creategmeetEvent(this.formValues)
-                .subscribe((data) => {});
+                .subscribe(
+                  (gmeetData) => {
+                    // On success, call getGmeetLink
+                    this.eventCreateService.getGmeetLink().subscribe(
+                      (linkData) => {
+                        console.log(linkData);
+                        this.eventCreateService
+                          .updateEventwithGmeetLink(linkData.data.hangoutLink)
+                          .subscribe(
+                            (updateData) => {
+                              console.log(
+                                "Event updated with Gmeet link: ",
+                                updateData
+                              );
+                            },
+                            (err: any) => {
+                              console.log(
+                                "Error updating event with Gmeet link: ",
+                                err
+                              );
+                              this.sbToastService.showIziToastMsg(
+                                err.message,
+                                "error"
+                              );
+                            }
+                          );
+                      },
+                      (err: any) => {
+                        console.log("Error getting Gmeet link: ", err);
+                        this.sbToastService.showIziToastMsg(
+                          err.message,
+                          "error"
+                        );
+                      }
+                    );
+                  },
+                  (err: any) => {
+                    // On error, log error and still call getGmeetLink
+                    console.log("Error creating Gmeet event: ", err);
+                    this.sbToastService.showIziToastMsg(err.message, "error");
+
+                    // Call getGmeetLink even if creategmeetEvent fails
+                    this.eventCreateService.getGmeetLink().subscribe(
+                      (linkData) => {
+                        console.log(linkData);
+                        this.eventCreateService
+                          .updateEventwithGmeetLink(
+                            linkData.result.data.hangoutLink
+                          )
+                          .subscribe(
+                            (updateData) => {
+                              console.log(
+                                "Event updated with Gmeet link: ",
+                                updateData
+                              );
+                            },
+                            (err: any) => {
+                              console.log(
+                                "Error updating event with Gmeet link: ",
+                                err
+                              );
+                              this.sbToastService.showIziToastMsg(
+                                err.message,
+                                "error"
+                              );
+                            }
+                          );
+                      },
+                      (err: any) => {
+                        console.log("Error getting Gmeet link: ", err);
+                        this.sbToastService.showIziToastMsg(
+                          err.message,
+                          "error"
+                        );
+                      }
+                    );
+                  }
+                );
             }
           },
           (err: any) => {
-            console.log("Errr, ", err);
+            console.log("Error creating event: ", err);
             this.sbToastService.showIziToastMsg(err.message, "error");
           }
         );
@@ -771,6 +886,23 @@ export class EventCreateComponent implements OnInit {
     this.closeSaveForm.emit();
   }
 
+  updateEventWithGmeetLink(eventType) {
+    if (eventType == "private") {
+      this.eventCreateService
+        .updateEventwithGmeetLink(this.formValues)
+        .subscribe(
+          (data) => {
+            if (data.responseCode == "OK") {
+              this.dataSubmitted(data, "update");
+            }
+          },
+          (err) => {
+            console.log({ err });
+            // this.sbToastService.showIziToastMsg(err.error.result.messages[0], 'error');
+          }
+        );
+    }
+  }
   /**
    * For time validation
    *

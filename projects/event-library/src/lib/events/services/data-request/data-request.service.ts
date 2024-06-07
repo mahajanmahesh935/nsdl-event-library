@@ -10,6 +10,7 @@ import { ServerResponse, RequestParam, HttpOptions } from "../../interfaces";
 import * as _ from "lodash-es";
 // import { UUID } from 'angular2-uuid';
 import { UserConfigService } from "../userConfig/user-config.service";
+import { environment } from "../../environment";
 // import dayjs from 'dayjs';
 
 @Injectable({
@@ -40,8 +41,7 @@ export class DataService {
     } else {
       const default_headers = {
         Accept: "application/json",
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIzVGRIUkFpTUFiRHN1SUhmQzFhYjduZXFxbjdyQjZrWSJ9.MotRsgyrPzt8O2jp8QZfWw0d9iIcZz-cfNYbpifx5vs",
+        Authorization: environment.bearerToken,
         // 'X-Consumer-ID': 'X-Consumer-ID',
         // 'X-Source': 'web',
         // 'ts': dayjs().format(),
@@ -65,6 +65,7 @@ export class DataService {
         ? this.getHeader(requestParam.header)
         : this.getHeader(),
       params: requestParam.param,
+      // withCredentials: true,
     };
     return this.http
       .post(requestParam.url, requestParam.data, httpOptions)
